@@ -4,6 +4,20 @@ import (
 	"context"
 	"fmt"
 )
+type RandomImage struct {
+	Message string
+	Status string
+}
+
+type AllBreads struct {
+	Message map[string]map[string][]string
+	Status string
+}
+
+type ImagesByBreed struct {
+	Message []string
+	Status string
+}
 
 // App struct
 type App struct {
