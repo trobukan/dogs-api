@@ -6,6 +6,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"sort"
 )
 type RandomImage struct {
 	Message string
@@ -53,4 +54,29 @@ func (a *App) GetRandomImageUrl() string {
 	json.Unmarshal(responseData, &data)
 
 	return data.Message
+}
+
+func (a *App) GetBreedList() []string {
+	var breeds []string
+
+	response, err := http.Get("https://dog.ceo/api/breeds/list/all")
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	responseData, err := io.ReadAll(response.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var data AllBreads
+	json.Unmarshal(responseData, &data)
+	
+	for k := range data.Message {
+		breeds = append(breeds, k)
+	}
+
+	sort.Strings(breeds)
+
+	return breeds
 }
