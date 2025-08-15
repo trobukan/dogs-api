@@ -3,8 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"fmt"
-	"io/ioutil"
+	"io"
 	"log"
 	"net/http"
 )
@@ -45,7 +44,7 @@ func (a *App) GetRandomImageUrl() string {
 		log.Fatal(err)
 	}
 
-	responseData, err := ioutil.ReadAll(response.Body)
+	responseData, err := io.ReadAll(response.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
