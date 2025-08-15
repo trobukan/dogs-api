@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"io"
 	"log"
 	"net/http"
@@ -79,4 +80,21 @@ func (a *App) GetBreedList() []string {
 	sort.Strings(breeds)
 
 	return breeds
+}
+
+func (a *App) GetImageUrlsByBreed(breed string) []string {
+	url := fmt.Sprintln("%s%s%s%s", "https://dog.ceo/api", "breed/", breed, "/images")
+	response, err := http.Get(url)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	responseData, err := io.ReadAll(response.Body)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	var data ImagesByBreed
+	json.Unmarshal(responseData, &data)
+	return data.Message
 }
