@@ -83,7 +83,7 @@ func (a *App) GetBreedList() []string {
 }
 
 func (a *App) GetImageUrlsByBreed(breed string) []string {
-	url := fmt.Sprintln("%s%s%s%s", "https://dog.ceo/api", "breed/", breed, "/images")
+	url := fmt.Sprintf("%s%s%s%s", "https://dog.ceo/api", "breed/", breed, "/images")
 	response, err := http.Get(url)
 	if err != nil {
 		log.Fatal(err)
